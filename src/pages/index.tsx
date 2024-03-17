@@ -1,8 +1,8 @@
-import HomeView from '@/views/Home';
+import ProductsView from '@/views/Products';
 
 const Home = () => {
   return (
-    <HomeView />
+    <ProductsView />
   );
 };
 

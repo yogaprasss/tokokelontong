@@ -1,0 +1,19 @@
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+}
+
+.filterContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.categorySelector {
+  padding: 4px;
+  outline: none;
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 144px;
+}
