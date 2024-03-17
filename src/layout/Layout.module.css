@@ -1,0 +1,9 @@
+.mainSection {
+  --sidebar-width: 180px;
+  --topbar-height: 60px;
+  position: fixed;
+  width: calc(100vw - var(--sidebar-width));
+  height: calc(100vh - var(--topbar-height));
+  margin: var(--topbar-height) 0 0 var(--sidebar-width);
+  padding: 8px 16px;
+}

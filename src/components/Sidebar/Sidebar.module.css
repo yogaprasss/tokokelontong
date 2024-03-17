@@ -1,0 +1,37 @@
+.sidebar {
+  --sidebar-width: 180px;
+  position: fixed;
+  width: var(--sidebar-width);
+  height: 100vh;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.logoContainer {
+  --topbar-height: 60px;
+  width: 100%;
+  height: var(--topbar-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuContainer {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.menu, .menuActive {
+  text-decoration: none;
+  padding: 8px 16px;
+  font-size: 18px;
+}
+
+.menuActive {
+  background: #ECF87F;
+}
+
+.menu:hover {
+  background: #f8f8f8;
+}

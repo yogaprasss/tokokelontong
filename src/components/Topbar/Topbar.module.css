@@ -1,0 +1,28 @@
+.topbar {
+  --topbar-height: 60px;
+  --sidebar-width: 180px;
+  position: fixed;
+  width: calc(100vw - var(--sidebar-width));
+  height: var(--topbar-height);
+  left: var(--sidebar-width);
+  background: #81b622;
+  z-index: 10;
+  padding-right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.buttonLogout {
+  background: transparent;
+  border: none;
+  color: #ff0000;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.buttonLogout:hover {
+  color: #c32222;
+}
