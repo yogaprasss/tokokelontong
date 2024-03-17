@@ -1,0 +1,32 @@
+.listImage {
+  width: 100%;
+  max-width: 200px;
+  height: 180px;
+  border-radius: 8px;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.listText {
+  width: 100%;
+  max-width: 200px;
+  height: 20px;
+  border-radius: 8px;
+  margin-top: 8px;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.pagination {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #ddd;
+  }
+  100% {
+    background-color: #a8a8a8;
+  }
+}

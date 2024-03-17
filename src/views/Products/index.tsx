@@ -1,11 +1,23 @@
 import Layout from '@/layout';
 import useProductsHooks from './hooks';
 import styles from './Products.module.css';
+import ProductCard from '@/components/ProductCard';
+
+import { Pagination } from '@mui/material';
+import SkeletonList from '@/components/Skeleton/list';
+import SkeletonPagination from '@/components/Skeleton/pagination';
 
 const ProductsView = () => {
   const {
-    data: { selectedCategory, categories },
-    methods: { onInputCategory }
+    data: {
+      isLoading,
+      selectedCategory,
+      categories,
+      products,
+      totalPage,
+      page
+    },
+    methods: { onInputCategory, onChangePage }
   } = useProductsHooks();
   return (
     <Layout>
@@ -25,6 +37,23 @@ const ProductsView = () => {
             ))}
           </select>
         </div>
+      </div>
+      <br />
+      <div className={styles.productsContainer}>
+        {isLoading ?
+          new Array(6).fill('').map((_, index) => <SkeletonList key={`skeleton-${index + 1}`} />) :
+          products.map((item) => {
+            return <ProductCard key={item.id} {...item} />
+          }
+        )}
+      </div>
+      <br />
+      <br />
+      <div className={styles.pagination}>
+        {isLoading ?
+          new Array(6).fill('').map((_, index) => <SkeletonPagination key={`skeleton-${index + 1}`} />) : (
+          <Pagination page={page} count={totalPage} color='primary' onChange={onChangePage} />
+        )}
       </div>
     </Layout>
   );
