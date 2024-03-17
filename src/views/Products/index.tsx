@@ -17,7 +17,7 @@ const ProductsView = () => {
       totalPage,
       page
     },
-    methods: { onInputCategory, onChangePage }
+    methods: { onInputCategory, onChangePage, resetFilter }
   } = useProductsHooks();
   return (
     <Layout>
@@ -36,6 +36,9 @@ const ProductsView = () => {
               </option>
             ))}
           </select>
+          {selectedCategory && (
+            <button onClick={resetFilter} className={styles.buttonReset}>Reset</button>
+          )}
         </div>
       </div>
       <br />

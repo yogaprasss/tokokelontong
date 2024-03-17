@@ -28,3 +28,9 @@ export const getProductsByCategory = async (category: string) => {
   const result = await axios.get(baseURL + path);
   return result.data as ProductProps[];
 };
+
+export const getProductById = async (id: string | number) => {
+  const path = `/products/${id}`;
+  const result = await axios.get(baseURL + path);
+  return result.data as ProductProps;
+};

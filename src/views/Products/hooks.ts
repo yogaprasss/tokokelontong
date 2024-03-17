@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getAllCategories } from '@/services/category';
 
+import type { ChangeEvent } from 'react';
 import type { CategoryOption } from '@/services/category';
 import type { ProductProps } from '@/services/product';
 
@@ -24,7 +25,7 @@ const useProductsHooks = () => {
     setIsLoading(true);
 
     const pathname = '/api/products';
-    const pageQuery = `?page=${page}`
+    const pageQuery = `?page=${page}`;
     const categoryQuery = selectedCategory ? `&category=${selectedCategory}` : '';
 
     const data = await axios.get(pathname + pageQuery + categoryQuery);
@@ -52,6 +53,11 @@ const useProductsHooks = () => {
     setPage(value);
   }, []);
 
+  const resetFilter = useCallback(() => {
+    setSelectedCategory('');
+    setPage(1);
+  }, []);
+
   useEffect(() => {
     getAllData();
   }, []);
@@ -69,7 +75,7 @@ const useProductsHooks = () => {
       totalPage,
       page
     },
-    methods: { onInputCategory, onChangePage }
+    methods: { onInputCategory, onChangePage, resetFilter }
   }
 };
 

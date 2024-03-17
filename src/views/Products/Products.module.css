@@ -30,3 +30,14 @@
   width: 100%;
   gap: 8px;
 }
+
+.buttonReset {
+  color: #81B622;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.buttonReset:hover {
+  color: #3D550C;
+}
