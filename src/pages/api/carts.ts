@@ -42,7 +42,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<CartsResponse>,
 ) {
-  const data = await getAllCarts();
+  const startDate = req.query.startdate as string ?? '';
+  const endDate = req.query.enddate as string ?? '';
+  const data = await getAllCarts(startDate, endDate);
   if (data) {
     const page = Number(req.query.page as string);
     const startIndex = (page - 1) * 5;

@@ -24,12 +24,18 @@ const CartsView = () => {
       page,
       totalPage,
       isShowProduct,
-      selectedProduct
+      selectedProduct,
+      startDate,
+      endDate
     },
     methods: {
       onChangePage,
       onShowProduct,
-      toggleShowProduct
+      toggleShowProduct,
+      onInputStartDate,
+      onInputEndDate,
+      submitFilter,
+      resetFilter
     }
   } = useCartsHooks();
   return (
@@ -63,6 +69,41 @@ const CartsView = () => {
         <div>
           <div className={styles.titleContainer}>
             <h1>Carts</h1>
+            <div className={styles.filterContainer}>
+              <h4>Filter Date</h4>
+              <label htmlFor='start-date'>Start Date</label>
+              <input
+                type='date'
+                id='start-date'
+                name='start-date'
+                value={startDate}
+                onChange={onInputStartDate}
+              />
+              <label htmlFor='start-date'>End Date</label>
+              <input
+                type='date'
+                id='start-date'
+                name='start-date'
+                value={endDate}
+                onChange={onInputEndDate}
+              />
+              <button
+                type='button'
+                onClick={submitFilter}
+                className={styles.buttonSubmitFilter}
+              >
+                Submit
+              </button>
+              {(startDate || endDate) && (
+                <button
+                  type='button'
+                  onClick={resetFilter}
+                  className={styles.buttonResetFilter}
+                >
+                  Reset
+                </button>
+              )}
+            </div>
           </div>
           <div>
             <Table>

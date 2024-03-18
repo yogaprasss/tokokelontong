@@ -4,6 +4,21 @@
   gap: 32px;
 }
 
+.filterContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.buttonSubmitFilter, .buttonResetFilter {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.buttonSubmitFilter { color: #189AB4 }
+.buttonResetFilter { color: #81B622; }
+
 .buttonSeeProduct {
   background: transparent;
   border: 0;
