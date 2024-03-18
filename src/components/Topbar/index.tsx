@@ -1,17 +1,30 @@
+import { Snackbar } from '@mui/material';
 import styles from './Topbar.module.css';
 import useTopbarHooks from './hooks';
 
 const Topbar = () => {
-  const { methods: { logout } } = useTopbarHooks();
+  const {
+    data: { isShowSnackbar },
+    methods: { logout, handleClose }
+  } = useTopbarHooks();
   return (
-    <div className={styles.topbar}>
-      <button
-        className={styles.buttonLogout}
-        onClick={logout}
-      >
-        Logout
-      </button>
-    </div>
+    <>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={isShowSnackbar}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message='Logout Success'
+      />
+      <div className={styles.topbar}>
+        <button
+          className={styles.buttonLogout}
+          onClick={logout}
+        >
+          Logout
+        </button>
+      </div>
+    </>
   );
 };
 

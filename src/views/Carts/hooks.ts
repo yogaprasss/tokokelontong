@@ -3,11 +3,13 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import type { ChangeEvent } from 'react';
 import type { CartMetadataProps, ProductCartMetadataProps } from '@/pages/api/carts';
 
 const useCartsHooks = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [carts, setCarts] = useState<CartMetadataProps[]>([]);
   const [page, setPage] = useState(1);
@@ -77,7 +79,9 @@ const useCartsHooks = () => {
   }, [startDate, endDate]);
 
   useEffect(() => {
-    getAllData();
+    const token = window.localStorage.getItem('token');
+    if (!token) router.replace('/login');
+    else getAllData();
   }, []);
 
   useEffect(() => {

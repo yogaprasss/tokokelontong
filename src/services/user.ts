@@ -31,9 +31,24 @@ export interface UserProps {
   __v?: number;
 }
 
+interface LoginPayload {
+  username: string;
+  password: string;
+}
+
 export const getUserById = async (id: string | number) => {
   const path = `/users/${id}`;
   const result = await axios.get(baseURL + path);
   return result.data as UserProps;
+};
+
+export const login = async (payload: LoginPayload) => {
+  const path = '/auth/login';
+  try {
+    const result = await axios.post(baseURL + path, payload);
+    if (result) return result.data;
+  } catch (e) {
+    return e;
+  }
 };
 

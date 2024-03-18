@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { getAllCategories } from '@/services/category';
 
 import type { ChangeEvent } from 'react';
@@ -9,6 +10,7 @@ import type { CategoryOption } from '@/services/category';
 import type { ProductProps } from '@/services/product';
 
 const useProductsHooks = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState<CategoryOption[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -59,7 +61,9 @@ const useProductsHooks = () => {
   }, []);
 
   useEffect(() => {
-    getAllData();
+    const token = window.localStorage.getItem('token');
+    if (!token) router.replace('/login');
+    else getAllData();
   }, []);
 
   useEffect(() => {

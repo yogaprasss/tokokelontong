@@ -22,6 +22,14 @@
   animation: skeleton-loading 1s linear infinite alternate;
 }
 
+
+.pagination {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
 @keyframes skeleton-loading {
   0% {
     background-color: #ddd;
