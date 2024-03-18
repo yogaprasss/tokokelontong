@@ -4,13 +4,15 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 
 import type { ChangeEvent } from 'react';
-import type { CartMetadataProps } from '@/pages/api/carts';
+import type { CartMetadataProps, ProductCartMetadataProps } from '@/pages/api/carts';
 
 const useCartsHooks = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [carts, setCarts] = useState<CartMetadataProps[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [isShowProduct, setIsShowProduct] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<ProductCartMetadataProps[]>([]);
 
   const getCarts = useCallback(async () => {
     setIsLoading(true);
@@ -20,6 +22,7 @@ const useCartsHooks = () => {
 
     const data = await axios.get(pathname + pageQuery);
     if (data) {
+      console.log(data.data.count);
       setCarts(data.data.carts as unknown as CartMetadataProps[]);
       setTotalPage(Math.ceil((data.data.count as unknown as number) / 5));
     }
@@ -33,8 +36,17 @@ const useCartsHooks = () => {
     setIsLoading(false);
   }, []);
 
-  const onChangePage = useCallback((e: React.ChangeEvent<unknown>, value: number) => {
+  const onChangePage = useCallback((e: ChangeEvent<unknown>, value: number) => {
     setPage(value);
+  }, []);
+
+  const toggleShowProduct = useCallback(() => {
+    setIsShowProduct((value) => !value);
+  }, []);
+
+  const onShowProduct = useCallback((product: ProductCartMetadataProps[]) => () => {
+    setSelectedProduct(product);
+    toggleShowProduct();
   }, []);
 
   useEffect(() => {
@@ -50,9 +62,11 @@ const useCartsHooks = () => {
       isLoading,
       carts,
       totalPage,
-      page
+      page,
+      isShowProduct,
+      selectedProduct
     },
-    methods: { onChangePage }
+    methods: { onChangePage, toggleShowProduct, onShowProduct }
   }
 };
 

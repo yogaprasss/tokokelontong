@@ -49,7 +49,7 @@ const useProductsHooks = () => {
     setSelectedCategory(value);
   }, [page]);
 
-  const onChangePage = useCallback((e: React.ChangeEvent<unknown>, value: number) => {
+  const onChangePage = useCallback((e: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   }, []);
 

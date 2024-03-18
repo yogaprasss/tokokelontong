@@ -8,7 +8,7 @@ import type { CartProps, ProductCartProps } from '@/services/carts';
 import type { ProductProps } from '@/services/product';
 import type { UserProps } from '@/services/user';
 
-interface ProductCartMetadataProps extends ProductCartProps, ProductProps {}
+export interface ProductCartMetadataProps extends ProductCartProps, ProductProps {}
 
 export interface CartMetadataProps extends CartProps {
   user: UserProps;
@@ -49,7 +49,7 @@ export default async function handler(
     const endIndex = startIndex + 5;
     const allCarts = await Promise.all(data.map(mapCarts));
     const carts = allCarts.slice(startIndex, endIndex);
-    const response: CartsResponse = { count: carts.length, carts };
+    const response: CartsResponse = { count: allCarts.length, carts };
     res.status(200).json(response);
   } else {
     res.status(500);
