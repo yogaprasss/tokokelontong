@@ -19,6 +19,7 @@ const useCartsHooks = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isFetching, setIsFetching] = useState(false);
+  const [isShowModalAddCart, setIsShowModalAddCart] = useState(false);
 
   const getCarts = useCallback(async () => {
     setIsLoading(true);
@@ -78,6 +79,10 @@ const useCartsHooks = () => {
     setIsFetching(true);
   }, [startDate, endDate]);
 
+  const toggleModalAddCart = useCallback(() => {
+    setIsShowModalAddCart((value) => !value);
+  }, []);
+
   useEffect(() => {
     const token = window.localStorage.getItem('token');
     if (!token) router.replace('/login');
@@ -97,7 +102,8 @@ const useCartsHooks = () => {
       isShowProduct,
       selectedProduct,
       startDate,
-      endDate
+      endDate,
+      isShowModalAddCart
     },
     methods: {
       onChangePage,
@@ -106,7 +112,8 @@ const useCartsHooks = () => {
       onInputStartDate,
       onInputEndDate,
       submitFilter,
-      resetFilter
+      resetFilter,
+      toggleModalAddCart
     }
   }
 };

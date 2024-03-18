@@ -29,7 +29,8 @@ const CartsView = () => {
       selectedProduct,
       startDate,
       endDate,
-      isLoading
+      isLoading,
+      isShowModalAddCart
     },
     methods: {
       onChangePage,
@@ -38,7 +39,8 @@ const CartsView = () => {
       onInputStartDate,
       onInputEndDate,
       submitFilter,
-      resetFilter
+      resetFilter,
+      toggleModalAddCart
     }
   } = useCartsHooks();
   return (
@@ -66,6 +68,12 @@ const CartsView = () => {
               </div>
             </div>
           ))}
+        </div>
+      </Dialog>
+      <Dialog open={isShowModalAddCart} onClose={toggleModalAddCart}>
+        <DialogTitle>New Cart</DialogTitle>
+        <div className={styles.comingSoon}>
+          Coming Soon
         </div>
       </Dialog>
       <Layout>
@@ -106,6 +114,9 @@ const CartsView = () => {
                   Reset
                 </button>
               )}
+              <button type='button' onClick={toggleModalAddCart} className={styles.buttonAddCart}>
+                Add Cart
+              </button>
             </div>
           </div>
           <div>
