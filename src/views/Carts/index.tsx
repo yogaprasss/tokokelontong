@@ -4,8 +4,10 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import useCartsHooks from './hooks';
+import SkeletonTable from '@/components/Skeleton/table';
+import SkeletonPagination from '@/components/Skeleton/pagination';
 import Layout from '@/layout';
+import useCartsHooks from './hooks';
 import styles from './Carts.module.css';
 
 import { formatCurrency, isoDateToString } from '@/utils/string';
@@ -26,7 +28,8 @@ const CartsView = () => {
       isShowProduct,
       selectedProduct,
       startDate,
-      endDate
+      endDate,
+      isLoading
     },
     methods: {
       onChangePage,
@@ -106,38 +109,43 @@ const CartsView = () => {
             </div>
           </div>
           <div>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {tableColumns.map((item, index) => (
-                    <TableCell key={`column-${index + 1}`}>{item}</TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {carts.map((cart) => (
-                  <TableRow
-                    key={cart.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell>{cart.user.name.firstname} {cart.user.name.lastname}</TableCell>
-                    <TableCell>{isoDateToString(cart.date)}</TableCell>
-                    <TableCell>
-                      <button
-                        type='button'
-                        onClick={onShowProduct(cart.products)}
-                        className={styles.buttonSeeProduct}
-                      >
-                        See Products
-                      </button>
-                    </TableCell>
+            {isLoading ? <SkeletonTable /> : (
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {tableColumns.map((item, index) => (
+                      <TableCell key={`column-${index + 1}`}>{item}</TableCell>
+                    ))}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {carts.map((cart) => (
+                    <TableRow
+                      key={cart.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell>{cart.user.name.firstname} {cart.user.name.lastname}</TableCell>
+                      <TableCell>{isoDateToString(cart.date)}</TableCell>
+                      <TableCell>
+                        <button
+                          type='button'
+                          onClick={onShowProduct(cart.products)}
+                          className={styles.buttonSeeProduct}
+                        >
+                          See Products
+                        </button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
             <br />
             <div className={styles.pagination}>
-              <Pagination page={page} count={totalPage} color='primary' onChange={onChangePage} />
+              {isLoading ?
+                new Array(4).fill('').map((_, index) => <SkeletonPagination key={`skeleton-${index + 1}`} />) : (
+                <Pagination page={page} count={totalPage} color='primary' onChange={onChangePage} />
+              )}
             </div>
           </div>
         </div>
