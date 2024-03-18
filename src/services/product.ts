@@ -34,3 +34,9 @@ export const getProductById = async (id: string | number) => {
   const result = await axios.get(baseURL + path);
   return result.data as ProductProps;
 };
+
+export const deleteProduct = async (id: string | number) => {
+  const path = `/products/${id}`;
+  const result = await axios.delete(baseURL + path);
+  return result.data;
+};

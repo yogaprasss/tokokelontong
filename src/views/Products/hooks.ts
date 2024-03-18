@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getAllCategories } from '@/services/category';
+import { deleteProduct } from '@/services/product';
 
 import type { ChangeEvent } from 'react';
 import type { CategoryOption } from '@/services/category';
@@ -17,6 +18,7 @@ const useProductsHooks = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [isShowSnackbar, setIsShowSnackbar] = useState(false);
 
   const getCategories = useCallback(async () => {
     const data = await getAllCategories();
@@ -60,6 +62,18 @@ const useProductsHooks = () => {
     setPage(1);
   }, []);
 
+  const onDeleteProduct = useCallback(async (id: string | number) => {
+    const result = await deleteProduct(id);
+    if (result) {
+      setIsShowSnackbar(true);
+      setProducts((_products) => _products.filter((item) => item.id !== id));
+    }
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setIsShowSnackbar(false);
+  }, [])
+
   useEffect(() => {
     const token = window.localStorage.getItem('token');
     if (!token) router.replace('/login');
@@ -77,9 +91,16 @@ const useProductsHooks = () => {
       selectedCategory,
       products,
       totalPage,
-      page
+      page,
+      isShowSnackbar
     },
-    methods: { onInputCategory, onChangePage, resetFilter }
+    methods: {
+      onInputCategory,
+      onChangePage,
+      resetFilter,
+      onDeleteProduct,
+      handleClose
+    }
   }
 };
 

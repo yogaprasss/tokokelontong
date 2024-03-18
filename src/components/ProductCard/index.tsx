@@ -9,7 +9,19 @@ import { capitalizeWord, formatCurrency } from '@/utils/string';
 
 import type { ProductProps } from '@/services/product';
 
-const ProductCard: FC<ProductProps> = ({ id, title, price, category, image, rating }) => {
+interface ProductCardProps extends ProductProps {
+  onDeleteProduct: (id: string | number) => void;
+}
+
+const ProductCard: FC<ProductCardProps> = ({
+  id,
+  title,
+  price,
+  category,
+  image,
+  rating,
+  onDeleteProduct
+}) => {
   const { methods: { deleteProduct, background } } = useProductCardHooks();
   return (
     <div className={styles.container}>
@@ -26,7 +38,7 @@ const ProductCard: FC<ProductProps> = ({ id, title, price, category, image, rati
             <p className={styles.title} title={title}>{title}</p>
             <button
               type='button'
-              onClick={deleteProduct(id)}
+              onClick={deleteProduct(id, onDeleteProduct)}
               className={styles.buttonDelete}
             >
               <Image src={DeleteIcon} alt='delete-icon' width={15} height={24} />

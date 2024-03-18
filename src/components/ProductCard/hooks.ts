@@ -1,7 +1,12 @@
 import { useCallback } from 'react';
 
 const useProductCardHooks = () => {
-  const deleteProduct = useCallback((id: string | number) => () => {}, []);
+  const deleteProduct = useCallback((
+    id: string | number,
+    callback: (id: string | number) => void
+  ) => () => {
+    callback(id);
+  }, []);
 
   const background = useCallback((styles: { [key: string]: string }, category: string) => {
     const categoryLowerCase = category.toLowerCase();
